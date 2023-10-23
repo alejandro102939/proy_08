@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante</title>
+</head>
+<body>
+    <script>
+        function restaurante(plato, cantidad, precio){
+            this.plato = plato;
+            this.cantidad = cantidad;
+            this.precio = precio;
+        }
+
+        let restaurante1 = new restaurante('perro caliente', '3', '30.000');
+        
+        console.log({restaurante1});
+
+        const restaurantePrototype = {
+
+            pedidoRestaurante (){
+                console.log(`Su pedido ha sido: ${this.plato} ` + ` y son ${this.cantidad} la cantidad ` + ` y el precio es ${this.precio}`)
+            },
+            valorPedido (){
+                let calcular = 3 * 30000;
+                console.log(`el valor de su pedido es: ${calcular}`);
+            },
+            descuentoPedido (){
+                
+                var valorPedido1 = 90000; // Puedes cambiar este valor según el valor de cada pedido
+
+                
+                if (valorPedido1 > 50000) {
+                var descuento = valorPedido1 * 0.10; // Calcula el 10% del valor del pedido
+                valorPedido1 -= descuento; // Resta el descuento al valor del pedido
+                }
+                console.log("Valor del pedido original es 90000");
+                
+
+                if (descuento) {
+                console.log("Descuento aplicado: $" + descuento.toFixed(2));
+                console.log("Valor del pedido con descuento: $" + valorPedido1.toFixed(2));
+                }
+
+            }
+        }
+
+        Object.assign(restaurante.prototype, restaurantePrototype);
+
+        console.log({restaurante1});
+        restaurante1.pedidoRestaurante();
+        restaurante1.valorPedido();
+        restaurante1.descuentoPedido();
+
+        function restauranteDomicilio(plato, cantidad, precio, tiempoEntrega, valorDomicilio) {
+            this.super = restaurante;
+            this.super(plato, cantidad, precio);
+            this.tiempoEntrega = tiempoEntrega;
+            this.valorDomicilio = valorDomicilio;
+        }
+
+        restauranteDomicilio.prototype = new restaurante();
+        restauranteDomicilio.prototype.constructor = restaurante;
+
+        restauranteDomicilio.prototype.informacionRestaurante = function(){
+            console.log(`Su pedido ha sido: ${this.plato} ` + ` y son ${this.cantidad} la cantidad ` + ` y el precio es ${this.precio} ` + ` /El tiempo de entrega es: ${this.tiempoEntrega}  ` + ` /El valor del domicilio es: ${this.valorDomicilio}`);
+        }
+
+        restauranteDomicilio.prototype.valorPedido = function(){
+            let calcular = 3 * 30000;
+            console.log(`el valor de su pedido es: ${calcular}`); 
+        }
+
+
+        let restauranteDomicilio1 = new restauranteDomicilio('perro caliente', '3', '30.000', 'media hora', '4000');
+        console.log({restauranteDomicilio1});
+
+        restauranteDomicilio1.informacionRestaurante();
+        restauranteDomicilio1.valorPedido();
+
+
+        
+
+    </script>
+</body>
+</html>                   

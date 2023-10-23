@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor</title>
+</head>
+<body>
+    <script>
+        function Instructor(nombre, linea, jornada) {
+            this.nombre = nombre;
+            this.linea = linea;
+            this.jornada = jornada;
+        }
+
+        let Instructor1 = new Instructor('Orlando', 'Software', 'Tarde');
+
+        console.log({Instructor1});
+
+
+        const instructorPrototype = {
+
+            informacionInstructor (){
+                console.log(`Informacion del instructor - Nombre: ${this.nombre} ` + `/linea: ${this.linea} ` + `/Jornada: ${this.jornada}`);
+            },
+
+            programaFormacion (){
+                let software = "Analisis y desarrollo de Software";
+                let hardware = "Administracion de redes";
+                let otra = "No se tiene registro calificado para esas lineas tecnologicas";
+                console.log(`linea del instructor - Software: ${software}`);
+                console.log(`linea del instructor - Hardware: ${hardware}`);
+                console.log(`linea del instructor - no existe: ${otra}`);
+            }
+        }
+
+        Object.assign(Instructor.prototype, instructorPrototype);
+
+        console.log({Instructor1});
+        Instructor1.informacionInstructor();
+        Instructor1.programaFormacion();
+
+        // herencia prototipada
+        function instructorPlanta(nombre, linea, jornada, fechavinculacion){
+            this.super = Instructor;
+            this.super (nombre, linea, jornada);
+            this.fechavinculacion = fechavinculacion;
+        }
+
+        instructorPlanta.prototype = new Instructor();
+        instructorPlanta.prototype.constructor = Instructor;
+
+        instructorPlanta.prototype.informacionInstructor = function(){
+            console.log(`Informacion del instructor - Nombre: ${this.nombre} ` + `/linea: ${this.linea} ` + `/Jornada: ${this.jornada} ` + `/fechavinculacion: ${this.fechavinculacion}`);
+        }
+
+        instructorPlanta.prototype.tiempoVinculacion = function(){
+            function diasAMeses(dias) {
+            // Definir un promedio de días por mes (365 días / 12 meses)
+            var diasPorMes = 30.42; // Este valor toma en cuenta los meses con diferentes números de días
+
+            // Realizar la conversión
+            var meses = dias / diasPorMes;
+            return meses;
+            }
+
+            var dias = 83;
+            var meses = diasAMeses(dias);
+            console.log(dias + " días son aproximadamente " + meses.toFixed(2) + " meses.");
+        }
+
+        let instructorPlanta1 = new instructorPlanta('Orlando', 'Software', 'Tarde', '83dias');
+        console.log({instructorPlanta1});
+
+        instructorPlanta1.informacionInstructor();
+        instructorPlanta1.tiempoVinculacion();
+
+        
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automovil</title>  
+</head>
+<body>
+    <script>
+
+        function automivil(marca, linea, modelo, cilindraje, precio) {
+            this.marca = marca; 
+            this.linea = linea;
+            this.modelo = modelo;
+            this.cilindraje = cilindraje;
+            this.precio = precio;
+        }
+        let automuvil1 = new automivil('Toyota', '3.0 litros', 'Supra Turbo', '6 cilindros', '60.850 euros')
+
+        console.log({automuvil1})
+
+        
+        const automivilPrototype = {
+
+            informacionVehiculo (){
+                console.log(`Informacion general de su automivil, su marca es ${this.marca} ` + `su linea es ${this.linea} ` + 
+                `su modelo ${this.modelo} ` + `su cilindraje ${this.cilindraje} ` + `y su precio es ${this.precio}`);     
+            },
+            revicionTecnicoMecanica (){
+                console.log(`su modelo  ${this.modelo} presenta mas de 5 años sin una revion tecnicomecanica `);
+            },
+            nivelGasolina (){
+                let numeroAleatorio = Math.floor(Math.random() * 100) + 1;
+                console.log(`Su nivel de gasolina es: ${numeroAleatorio}`);
+            }  
+
+        }
+        
+        Object.assign(automivil.prototype, automivilPrototype);
+
+        console.log({automuvil1});
+        automuvil1.informacionVehiculo();
+        automuvil1.revicionTecnicoMecanica();
+        automuvil1.nivelGasolina();
+
+        function sedan(marca, linea, modelo, cilindraje, precio, numeroPasajeros, tipoCaja) {
+            this.super = automivil;
+            this.super(marca, linea, modelo, cilindraje, precio);
+            this.numeroPasajeros = numeroPasajeros;
+            this.tipoCaja = tipoCaja;
+        }
+
+        sedan.prototype = new automivil();
+        sedan.prototype.constructor = automivil;
+
+        sedan.prototype.numeroCinturonesSeguridad = function(){
+            console.log(`Su modelo ${this.modelo} tiene 4 cinturones de seguridad`);
+        }
+
+        sedan.prototype.informacionVehiculo = function(){
+            console.log(`Su modelo ${this.modelo} tiene una capacidad de ${this.numeroPasajeros} pasajeros, ` + 
+            `su modelo ${this.modelo} tiene una caja ${this.tipoCaja}`)
+        }
+
+        
+
+        let sedan1 = new sedan('kia', 'Beta II (G4GC) de Hyundai.', 'Cerato', '4', '43.500.000', '5', 'caja automatica');
+        console.log({sedan1});
+
+        sedan1.numeroCinturonesSeguridad();
+        sedan1.informacionVehiculo();
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+    </script>
+</body>
+</html>
